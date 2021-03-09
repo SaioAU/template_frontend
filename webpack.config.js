@@ -1,8 +1,8 @@
-const path = require('path')
-const webpack = require('webpack')
-const ESLintPlugin = require('eslint-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+const path = require('path');
+const webpack = require('webpack');
+const ESLintPlugin = require('eslint-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   entry: path.resolve(__dirname, './src/index.js'),
@@ -17,6 +17,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['*', '.js', '.jsx'],
+    alias: { app: path.resolve(__dirname, 'src/') },
   },
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -38,4 +39,4 @@ module.exports = {
     }),
     new CleanWebpackPlugin(),
   ],
-}
+};
