@@ -1,12 +1,11 @@
 {
-  "name": "minimal-react-webpack-babel-eslint-prettier-setup",
-  "version": "1.1.0",
+  "name": "template_frontend",
+  "version": "1.0",
   "private": true,
-  "repository": "git@github.com:junagao/minimal-react-webpack-babel-eslint-prettier-setup.git",
-  "author": "Juliane Nagao <julianens@gmail.com> (http://junagao.com)",
+  "author": "",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack serve --mode development",
+    "start": "webpack serve --mode development --port ${PORT:-3004}",
     "build": "webpack --mode production",
     "lint": "eslint ./src --cache && echo \"No linting errors\"",
     "lint:fix": "eslint ./src --fix"
