@@ -1,7 +1,12 @@
 import Routes from './routes';
+import ContextProvider from './context';
 
 const App = () => {
-  return <Routes />;
+  return (
+    <ContextProvider>
+      <Routes />
+    </ContextProvider>
+  );
 };
 
 export default App;
