@@ -1,17 +1,42 @@
-import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
 
-import { useAuth } from 'app/hooks';
+import { useAutheticatedFetch, useEnsureAuthenticated } from 'app/hooks';
+
+const API_URL = 'http://localhost:3003';
 
 const Admin = () => {
-  const { push } = useHistory();
-  const { authenticated /* , userId */ } = useAuth();
+  const [users, setUsers] = useState([]);
+  const authenticatedFetch = useAutheticatedFetch();
+
+  useEnsureAuthenticated(); // TODO: Won't need this here; move to admin route?
+
+  const fetchUsers = useCallback(async () => {
+    const response = await authenticatedFetch(`${API_URL}/users/all`);
+    if (response.status !== 200) return;
+    setUsers(await response.json());
+  }, [authenticatedFetch]);
 
   useEffect(() => {
-    if (!authenticated) push('/login?next=/admin');
-  }, [authenticated, push]);
+    fetchUsers();
+  }, [fetchUsers]);
 
-  return <div>Admin</div>;
+  return (
+    <div>
+      <h1>Admin</h1>
+      {users.length > 0 && (
+        <div>
+          <h2>Users</h2>
+          <ul>
+            {users.map(({ id, name, email }) => (
+              <li key={`user-${id}`}>
+                {name} {email} ({id})
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default Admin;

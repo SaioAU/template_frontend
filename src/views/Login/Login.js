@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import { useAppContext } from 'app/hooks';
+import { useAuth } from 'app/hooks';
 
 import styles from './Login.scss';
 
@@ -10,12 +10,10 @@ const API_URL = 'http://localhost:3003';
 const Login = () => {
   const { search } = useLocation();
   const { push } = useHistory();
-
-  const [, setContext] = useAppContext();
-
   const [error, setError] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { onAuthenticate } = useAuth();
 
   const onChangeEmail = useCallback(({ target }) => setEmail(target.value), []);
   const onChangePassword = useCallback(({ target }) => setPassword(target.value), []);
@@ -28,7 +26,7 @@ const Login = () => {
 
       const response = await fetch(`${API_URL}/auth/login`, {
         method: 'post',
-        credentials: 'same-origin',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
@@ -41,10 +39,10 @@ const Login = () => {
       const authToken = response.headers.get('authToken');
       const next = new URLSearchParams(search).get('next') ?? '/';
 
-      setContext({ authToken });
+      onAuthenticate(authToken);
       push(next);
     },
-    [email, password, setContext, push, search],
+    [email, password, onAuthenticate, push, search],
   );
 
   return (
