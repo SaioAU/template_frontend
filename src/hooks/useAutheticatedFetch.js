@@ -3,6 +3,8 @@ import { useLocation } from 'react-router-dom';
 
 import useAuth from './useAuth';
 
+const API_URL = 'http://localhost:3003';
+
 const addAuthToHeaders = (authToken, { headers, ...rest } = {}) => ({
   ...rest,
   headers: { ...headers, auth: authToken },
@@ -22,7 +24,7 @@ export default () => {
       }
 
       let config = addAuthToHeaders(token, originalConfig);
-      let response = await fetch(url, config, ...remainingParams);
+      let response = await fetch(`${API_URL}/${url}`, config, ...remainingParams);
 
       // Auth token was unauthorized; try getting a new one
       if (authToken && response.status === 401) {

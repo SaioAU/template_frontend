@@ -1,10 +1,13 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import { Admin, Landing, Login } from 'app/views';
+import { Admin, EditUser, Landing, Login } from 'app/views';
 
 const Routes = () => (
   <BrowserRouter>
     <Switch>
+      <Route path="/admin/user/:userId" exact>
+        <EditUser />
+      </Route>
       <Route path="/admin" exact>
         <Admin />
       </Route>

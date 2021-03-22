@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
+import { Error } from 'app/components';
 import { useAuth } from 'app/hooks';
 
 import styles from './Login.scss';
@@ -61,7 +62,7 @@ const Login = () => {
         <br />
         <br />
         <button type="submit">Log in</button>
-        {Boolean(error) && <div className={styles.error}>{error}</div>}
+        <Error error={error} />
       </form>
     </div>
   );
