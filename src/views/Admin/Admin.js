@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { useAutheticatedFetch, useEnsureAuthenticated } from 'app/hooks';
 
+import styles from './Admin.scss';
+
 const API_URL = 'http://localhost:3003';
 
 const Admin = () => {
@@ -26,13 +28,20 @@ const Admin = () => {
       {users.length > 0 && (
         <div>
           <h2>Users</h2>
-          <ul>
+          <table className={styles.userTable}>
+            <tr>
+              <th>ID</th>
+              <th>User name</th>
+              <th>Email</th>
+            </tr>
             {users.map(({ id, name, email }) => (
-              <li key={`user-${id}`}>
-                {name} {email} ({id})
-              </li>
+              <tr key={`user-${id}`}>
+                <td>{id}</td>
+                <td>{name}</td>
+                <td>{email}</td>
+              </tr>
             ))}
-          </ul>
+          </table>
         </div>
       )}
     </div>
