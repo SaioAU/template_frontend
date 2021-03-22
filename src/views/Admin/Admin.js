@@ -1,14 +1,12 @@
 import { Link } from 'react-router-dom';
 
-import { useAuthenticatedQuery, useEnsureAuthenticated } from 'app/hooks';
+import { useAuthenticatedQuery } from 'app/hooks';
 
 import styles from './Admin.scss';
 
 const Admin = () => {
   const data = useAuthenticatedQuery('users/all');
   const users = data?.body;
-
-  useEnsureAuthenticated(); // TODO: Won't need this here; move to admin route?
 
   return (
     <div>
