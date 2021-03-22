@@ -2,14 +2,14 @@ import { useCallback, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { Error } from 'app/components';
-import { useAutheticatedFetch, useAuthenticatedQuery } from 'app/hooks';
+import { useAutheticatedFetch, useAuthenticatedData } from 'app/hooks';
 
 import styles from './EditUser.scss';
 
 const EditUser = () => {
   const { push } = useHistory();
   const { userId } = useParams();
-  const data = useAuthenticatedQuery(`users/?id=${userId}`);
+  const data = useAuthenticatedData(`users/?id=${userId}`);
   const authenticatedFetch = useAutheticatedFetch();
   const user = data?.body;
 

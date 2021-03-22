@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 
-import { useAuthenticatedQuery } from 'app/hooks';
+import { useAuthenticatedData } from 'app/hooks';
 
 import styles from './Admin.scss';
 
 const Admin = () => {
-  const data = useAuthenticatedQuery('users/all');
+  const data = useAuthenticatedData('users/all');
   const users = data?.body;
 
   return (
