@@ -1,0 +1,11 @@
+.buttons {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+
+  button {
+    max-width: 150px;
+    margin: 8px 0;
+    cursor: pointer;
+  }
+}

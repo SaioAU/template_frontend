@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { Error } from 'app/components';
 import { useAutheticatedFetch, useAuthenticatedQuery } from 'app/hooks';
@@ -7,6 +7,7 @@ import { useAutheticatedFetch, useAuthenticatedQuery } from 'app/hooks';
 import styles from './EditUser.scss';
 
 const EditUser = () => {
+  const { push } = useHistory();
   const { userId } = useParams();
   const data = useAuthenticatedQuery(`users/?id=${userId}`);
   const authenticatedFetch = useAutheticatedFetch();
@@ -41,8 +42,12 @@ const EditUser = () => {
       if (response.status !== 200) setError(await response.text());
       else setMessage('Updated ✓');
     },
-    [authenticatedFetch, email, name, user],
+    [authenticatedFetch, email, name, user?.id],
   );
+
+  const deleteUser = useCallback(() => push(`/admin/user/delete/${user?.id}`), [push, user?.id]);
+
+  const back = useCallback(() => push('/admin'), [push]);
 
   useEffect(() => {
     if (!message) return undefined;
@@ -61,6 +66,12 @@ const EditUser = () => {
         <input value={email} onChange={onChangeEmail} type="email" id="edit-user-email" />
       </label>
       <button type="submit">Update</button>
+      <button type="button" className={styles.deleteButton} onClick={deleteUser}>
+        Delete
+      </button>
+      <button type="button" onClick={back}>
+        Back
+      </button>
       <Error error={error} />
       {message && (
         <div>
