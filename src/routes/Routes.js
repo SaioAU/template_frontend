@@ -7,7 +7,7 @@ import AdminRoutes from './AdminRoutes';
 const Routes = () => (
   <BrowserRouter>
     <Switch>
-      <AdminRoutes />
+      <Route path="/admin" component={AdminRoutes} />
       <Route path="/login" exact>
         <Login />
       </Route>
