@@ -49,7 +49,7 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new ESLintPlugin(),
+    new ESLintPlugin({ emitWarning: false, emitError: false }),
     new HtmlWebpackPlugin({
       template: path.join('./src', 'index.html'),
       filename: 'index.html',
