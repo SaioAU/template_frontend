@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { Error } from 'app/components';
 import { useAutheticatedFetch, useAuthenticatedData } from 'app/hooks';
 
+import UserFields from '../UserFields';
 import styles from './EditUser.scss';
 
 const EditUser = () => {
@@ -57,14 +58,7 @@ const EditUser = () => {
 
   return (
     <form autoComplete="off" className={styles.userForm} onSubmit={onSubmit}>
-      <label htmlFor="edit-user-name">
-        Name:
-        <input value={name} onChange={onChangeName} type="text" id="edit-user-name" />
-      </label>
-      <label htmlFor="edit-user-email">
-        Email:
-        <input value={email} onChange={onChangeEmail} type="email" id="edit-user-email" />
-      </label>
+      <UserFields name={name} onChangeName={onChangeName} email={email} onChangeEmail={onChangeEmail} />
       <button type="submit">Update</button>
       <button type="button" className={styles.deleteButton} onClick={deleteUser}>
         Delete

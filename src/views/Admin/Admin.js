@@ -1,12 +1,16 @@
-import { Link } from 'react-router-dom';
+import { useCallback } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 
 import { useAuthenticatedData } from 'app/hooks';
 
 import styles from './Admin.scss';
 
 const Admin = () => {
+  const { push } = useHistory();
   const data = useAuthenticatedData('users/all');
   const users = data?.body;
+
+  const onClickCreate = useCallback(() => push('/admin/user/create'), [push]);
 
   return (
     <div>
@@ -14,6 +18,11 @@ const Admin = () => {
       {users?.length > 0 && (
         <div>
           <h2>Users</h2>
+          <button type="button" onClick={onClickCreate}>
+            Create
+          </button>
+          <br />
+          <br />
           <table className={styles.userTable}>
             <thead>
               <tr>

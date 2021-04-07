@@ -1,2 +1,2 @@
 export { default } from './Admin';
-export { EditUser, DeleteUser } from './components';
+export { CreateUser, EditUser, DeleteUser } from './components';
