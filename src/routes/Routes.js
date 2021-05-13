@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import { Landing, Login } from 'app/views';
+import { Landing, Login, Seasons } from 'app/views';
 
 import AdminRoutes from './AdminRoutes';
 
@@ -10,6 +10,9 @@ const Routes = () => (
       <Route path="/admin" component={AdminRoutes} />
       <Route path="/login" exact>
         <Login />
+      </Route>
+      <Route path="/seasons">
+        <Seasons />
       </Route>
       <Route path="/">
         <Landing />

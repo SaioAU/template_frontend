@@ -1,3 +1,7 @@
-const Landing = () => <h1>Landing page</h1>;
+const Landing = () => (
+  <div>
+    <div>landing</div>
+  </div>
+);
 
 export default Landing;
