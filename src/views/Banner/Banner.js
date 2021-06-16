@@ -1,14 +1,25 @@
 import { Link, useHistory } from 'react-router-dom';
 
-const seasons = [
-  { id: 1, name: 'winter' },
-  { id: 2, name: 'spring' },
-  { id: 3, name: 'summer' },
-  { id: 4, name: 'autumn' },
-];
+import { useData } from '../../hooks';
+
+// const seasons = [
+//   { id: 1, name: 'winter' },
+//   { id: 2, name: 'spring' },
+//   { id: 3, name: 'summer' },
+//   { id: 4, name: 'autumn' },
+// ];
 
 const Banner = () => {
   const { push } = useHistory();
+
+  const { data, loading, error } = useData('seasons/read/all');
+
+  if (loading) return <div>LOADING</div>;
+
+  if (error) return <div>ERROR: {error}</div>;
+
+  const seasons = data;
+
   return (
     <div>
       <div>
