@@ -12,13 +12,11 @@ import { useData } from '../../hooks';
 const Banner = () => {
   const { push } = useHistory();
 
-  const { data, loading, error } = useData('seasons/read/all');
+  const { data: seasons, loading, error } = useData('seasons/read/all');
 
   if (loading) return <div>LOADING</div>;
 
   if (error) return <div>ERROR: {error}</div>;
-
-  const seasons = data;
 
   return (
     <div>
