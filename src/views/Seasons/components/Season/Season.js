@@ -1,16 +1,21 @@
 import { useParams } from 'react-router-dom';
 
-const season = { id: 0, name: 'season 1' };
+import { Product } from '../../../../components';
+import { useData } from '../../../../hooks';
 
 const Season = () => {
   const { seasonId } = useParams();
-  // const season = getSeason(seasonId) // from backend
+  const { data, loading, error } = useData(`seasons/read?id=${seasonId}`);
 
+  if (loading) return <div> loading </div>;
+  if (error) return <div> error </div>;
+
+  const { products } = data;
   return (
     <div>
-      <div> {season.name} </div>
-      <div> {seasonId} </div>
-      <div> im at the season</div>
+      {products.map((product) => (
+        <Product key={product.id} product={product} />
+      ))}
     </div>
   );
 };
