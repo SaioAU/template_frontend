@@ -10,7 +10,7 @@ const Admin = () => {
   const data = useAuthenticatedData('users/all');
   const users = data?.body;
 
-  const onClickCreate = useCallback(() => push('/admin/user/create'), [push]);
+  const onClickCreateUser = useCallback(() => push('/admin/user/create'), [push]);
 
   return (
     <div>
@@ -18,7 +18,7 @@ const Admin = () => {
       {users?.length > 0 && (
         <div>
           <h2>Users</h2>
-          <button type="button" onClick={onClickCreate}>
+          <button type="button" onClick={onClickCreateUser}>
             Create
           </button>
           <br />
