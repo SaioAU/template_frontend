@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import useAuth from './useAuth';
 
-const API_URL = 'http://localhost:3003';
+const API_URL = 'http://localhost:3000';
 
 const addAuthToHeaders = (authToken, { headers, ...rest } = {}) => ({
   ...rest,

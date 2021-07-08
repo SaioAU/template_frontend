@@ -45,6 +45,9 @@ const Admin = () => {
               ))}
             </tbody>
           </table>
+          <Link to="admin/products">
+            <h2>Products</h2>
+          </Link>
         </div>
       )}
     </div>

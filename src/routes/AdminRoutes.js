@@ -1,6 +1,6 @@
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
-import Admin, { CreateUser, DeleteUser, EditUser } from 'app/views/Admin';
+import Admin, { CreateUser, DeleteUser, EditUser, AdminProducts } from 'app/views/Admin';
 
 const AdminRoutes = () => {
   const { path } = useRouteMatch();
@@ -15,6 +15,9 @@ const AdminRoutes = () => {
       </Route>
       <Route path={`${path}/user/delete/:userId`} exact>
         <DeleteUser />
+      </Route>
+      <Route path={`${path}/products`} exact>
+        <AdminProducts />
       </Route>
       <Route path={path}>
         <Admin />

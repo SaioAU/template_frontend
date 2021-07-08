@@ -6,7 +6,7 @@ import useAppContext from './useAppContext';
 
 // TODO: Take expiration into account for authenticated?
 
-const API_URL = 'http://localhost:3003';
+const API_URL = 'http://localhost:3000';
 
 export default () => {
   const [{ authToken }, setContext] = useAppContext();

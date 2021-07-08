@@ -6,7 +6,7 @@ import { useAuth } from 'app/hooks';
 
 import styles from './Login.scss';
 
-const API_URL = 'http://localhost:3003';
+const API_URL = 'http://localhost:3000';
 
 const Login = () => {
   const { search } = useLocation();
