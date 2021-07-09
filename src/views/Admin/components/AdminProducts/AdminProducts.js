@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 
 import { Link, useHistory } from 'react-router-dom';
 import { useAutheticatedFetch, useData } from 'app/hooks';
@@ -6,25 +6,34 @@ import { useAutheticatedFetch, useData } from 'app/hooks';
 import styles from '../../Admin.scss';
 
 const AdminProducts = () => {
-  const { push } = useHistory();
+  const { push, go } = useHistory();
   const { data } = useData('products/read/all');
   const onClickCreateProduct = useCallback(() => push('/admin/products'), [push]);
-  const onClickDelete = useCallback(
-    async (event) => {
-      event.preventDefault();
-      event.stopPropagation();
+  const authenticatedFetch = useAutheticatedFetch();
+  const onClickDelete = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
 
-      const response = await useAutheticatedFetch('products/', {
-        method: 'DELETE',
-        body: JSON.stringify({ id: product?.id }),
-        headers: { 'Content-Type': 'application/json' },
-      });
+    const response = await authenticatedFetch('user/', {
+      method: 'DELETE',
+      body: JSON.stringify({ id: user?.id }),
+      headers: { 'Content-Type': 'application/json' },
+    });
 
-      if (response.status !== 200) setError(await response.text());
-      else push('/admin');
-    },
-    [authenticatedFetch, push, user?.id],
-  );
+    if (response.status !== 200) setError(await response.text());
+    else push('/admin');
+  };
+
+  const onClickDeleteProduct = async (productId) => {
+    const response = await authenticatedFetch('products/delete', {
+      method: 'DELETE',
+      body: JSON.stringify({ id: productId }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (response.status !== 200) console.error(await response.text());
+    else go(0);
+  };
   return (
     <div>
       <h1>Admin</h1>
@@ -55,7 +64,7 @@ const AdminProducts = () => {
                     <Link to={`admin/products/${id}`}>EDIT</Link>
                   </td>
                   <td>
-                    <button type="button" onClick={onClickDelete}>
+                    <button type="button" onClick={() => onClickDeleteProduct(id)}>
                       Delete
                     </button>
                   </td>
