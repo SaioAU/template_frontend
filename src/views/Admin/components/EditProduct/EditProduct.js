@@ -48,7 +48,7 @@ const EditProduct = () => {
     event.preventDefault();
     event.stopPropagation();
     console.log(typeof price, '🐶');
-    const response = await authenticatedFetch('products/update', {
+    const response = await authenticatedFetch('update', {
       method: 'PATCH',
       body: JSON.stringify({
         id: productId,
