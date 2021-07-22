@@ -2,6 +2,8 @@ import { Link, useHistory } from 'react-router-dom';
 
 import { useData } from '../../hooks';
 
+import { Dropdown } from '../../components';
+
 // const seasons = [
 //   { id: 1, name: 'winter' },
 //   { id: 2, name: 'spring' },
@@ -17,6 +19,8 @@ const Banner = () => {
   if (loading) return <div>LOADING</div>;
 
   if (error) return <div>ERROR: {error}</div>;
+
+  const seasonOptions = seasons.map(({ id, name }) => ({ label: name, url: `/seasons/${id}` }));
 
   return (
     <div>
@@ -36,13 +40,7 @@ const Banner = () => {
           <li>
             <Link to="/bio/"> bio </Link>
           </li>
-          <select name="seasons" onChange={({ target }) => push(`/seasons/${target.value}`)}>
-            <option>seasons</option>
-            <option value={seasons[0].id}>{seasons[0].name}</option>
-            <option value={seasons[1].id}>{seasons[1].name}</option>
-            <option value={seasons[2].id}>{seasons[2].name}</option>
-            <option value={seasons[3].id}>{seasons[3].name}</option>
-          </select>
+          <Dropdown options={seasonOptions} title="seasons" />
         </ul>
         <br />
       </div>

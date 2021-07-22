@@ -29,18 +29,29 @@ const AdminProducts = () => {
           <table className={styles.userTable}>
             <thead>
               <tr>
-                <th>category</th>
                 <th>name</th>
-                <th>colour</th>
+                <th>description</th>
+                <th>category</th>
                 <th>size</th>
+                <th>colour</th>
+                <th>price</th>
+                <th>material</th>
+                <th>care</th>
+                <th>seasonId</th>
               </tr>
             </thead>
             <tbody>
-              {data?.map(({ category, name, size, id }) => (
+              {data?.map(({ category, name, size, id, colour, description, price, material, care, seasonId }) => (
                 <tr key={`product-${id}`}>
-                  <td>{category}</td>
                   <td>{name}</td>
+                  <td>{description}</td>
+                  <td>{category}</td>
                   <td>{size}</td>
+                  <td>{colour}</td>
+                  <td>{price}</td>
+                  <td>{material}</td>
+                  <td>{care}</td>
+                  <td>{seasonId}</td>
                   <td>
                     <Link to={`products/${id}`}>Edit</Link>
                   </td>
