@@ -42,7 +42,7 @@ const AdminProducts = () => {
                   <td>{name}</td>
                   <td>{size}</td>
                   <td>
-                    <Link to={`products/${id}`}>EDIT</Link>
+                    <Link to={`products/${id}`}>Edit</Link>
                   </td>
                   <td>
                     <button type="button" onClick={() => onClickDeleteProduct(id)}>
