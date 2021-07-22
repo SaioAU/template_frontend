@@ -31,7 +31,6 @@ const EditProduct = () => {
   const onChangeColour = useCallback(({ target }) => setColour(target.value), []);
   const onChangeMaterial = useCallback(({ target }) => setMaterial(target.value), []);
   const onChangeCare = useCallback(({ target }) => setCare(target.value), []);
-  const onChangeSeasonId = useCallback(({ target }) => setSeasonId(target.value), []);
 
   const back = useCallback(() => push('/admin/products'), [push]);
 
@@ -97,7 +96,7 @@ const EditProduct = () => {
             care={care}
             onChangeCare={onChangeCare}
             seasonId={seasonId}
-            onChangeSeasonId={onChangeSeasonId}
+            setSeasonId={setSeasonId}
           />
           <button type="submit">Edit</button>
           <button type="button" onClick={back}>

@@ -12,8 +12,6 @@ import { Dropdown } from '../../components';
 // ];
 
 const Banner = () => {
-  const { push } = useHistory();
-
   const { data: seasons, loading, error } = useData('seasons/read/all');
 
   if (loading) return <div>LOADING</div>;

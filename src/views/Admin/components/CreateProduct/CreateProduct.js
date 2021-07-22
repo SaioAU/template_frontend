@@ -26,7 +26,6 @@ const CreateProduct = () => {
   const onChangeColour = useCallback(({ target }) => setColour(target.value), []);
   const onChangeMaterial = useCallback(({ target }) => setMaterial(target.value), []);
   const onChangeCare = useCallback(({ target }) => setCare(target.value), []);
-  const onChangeSeasonId = useCallback(({ target }) => setSeasonId(target.value), []);
 
   const onSubmitCreate = async (event) => {
     event.preventDefault();
@@ -66,7 +65,7 @@ const CreateProduct = () => {
             care={care}
             onChangeCare={onChangeCare}
             seasonId={seasonId}
-            onChangeSeasonId={onChangeSeasonId}
+            setSeasonId={setSeasonId}
           />
           <button type="submit">Create</button>
           <button type="button" onClick={back}>
