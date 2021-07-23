@@ -88,10 +88,8 @@ const ProductFields = ({
         Care:
         <input value={care} onChange={onChangeCare} type="text" id="edit-product-care" className={styles.input} />
       </label>
-      <label htmlFor="edit-product-seasonId" className={styles.label}>
-        SeasonId:
-        <Dropdown options={seasonOptions} title={chosenSeason} />
-      </label>
+
+      <Dropdown options={seasonOptions} title={chosenSeason} />
     </>
   );
 };

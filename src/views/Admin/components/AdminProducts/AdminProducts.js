@@ -19,6 +19,11 @@ const AdminProducts = () => {
     else go(0);
   };
 
+  const { data: seasons, loading, error } = useData('seasons/read/all');
+
+  if (loading) return <div>LOADING</div>;
+
+  if (error) return <div>ERROR: {error}</div>;
   return (
     <div>
       <h1>Admin</h1>
@@ -51,7 +56,7 @@ const AdminProducts = () => {
                   <td>{price}</td>
                   <td>{material}</td>
                   <td>{care}</td>
-                  <td>{seasonId}</td>
+                  <td>{seasonId ? seasons.find((season) => season.id === seasonId).name : 'season'}</td>
                   <td>
                     <Link to={`products/${id}`}>Edit</Link>
                   </td>
