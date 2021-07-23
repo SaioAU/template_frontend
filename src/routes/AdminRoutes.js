@@ -8,6 +8,7 @@ import Admin, {
   CreateProduct,
   EditProduct,
   EditSeason,
+  CreateSeason,
 } from 'app/views/Admin';
 
 const AdminRoutes = () => {
@@ -32,6 +33,9 @@ const AdminRoutes = () => {
       </Route>
       <Route path={`${path}/products`} exact>
         <AdminProducts />
+      </Route>
+      <Route path={`${path}/seasons/create`} exact>
+        <CreateSeason />
       </Route>
       <Route path={`${path}/seasons/:seasonId`} exact>
         <EditSeason />
