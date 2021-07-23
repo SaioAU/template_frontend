@@ -1,15 +1,9 @@
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { useData } from '../../hooks';
 
 import { Dropdown } from '../../components';
-
-// const seasons = [
-//   { id: 1, name: 'winter' },
-//   { id: 2, name: 'spring' },
-//   { id: 3, name: 'summer' },
-//   { id: 4, name: 'autumn' },
-// ];
+import styles from './Banner.scss';
 
 const Banner = () => {
   const { data: seasons, loading, error } = useData('seasons/read/all');
@@ -21,28 +15,22 @@ const Banner = () => {
   const seasonOptions = seasons.map(({ id, name }) => ({ label: name, url: `/seasons/${id}` }));
 
   return (
-    <div>
-      <div>
-        <ul>
-          <li>
-            <Link to="/">
-              <h1>Ingrid Pettersen</h1>
-            </Link>
-          </li>
-          <li>
-            <Link to="/shop/"> shop </Link>
-          </li>
-          <li>
-            <Link to="/paintings/"> paintings </Link>
-          </li>
-          <li>
-            <Link to="/bio/"> bio </Link>
-          </li>
-          <Dropdown options={seasonOptions} title="seasons" />
-        </ul>
-        <br />
-      </div>
-      <div>picture</div>
+    <div className={styles.banner}>
+      <Link to="/">
+        <h1>Ingrid Pettersen</h1>
+      </Link>
+      <ul>
+        <li>
+          <Link to="/shop/"> shop </Link>
+        </li>
+        <li>
+          <Link to="/paintings/"> paintings </Link>
+        </li>
+        <li>
+          <Link to="/bio/"> bio </Link>
+        </li>
+        <Dropdown options={seasonOptions} title="seasons" />
+      </ul>
     </div>
   );
 };
