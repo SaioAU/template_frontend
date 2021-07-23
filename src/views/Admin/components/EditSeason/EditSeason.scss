@@ -1,0 +1,11 @@
+.userForm {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+
+  button {
+    max-width: 250px;
+    margin-top: 8px;
+    cursor: pointer;
+  }
+}

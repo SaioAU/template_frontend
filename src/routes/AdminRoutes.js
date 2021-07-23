@@ -1,6 +1,14 @@
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
-import Admin, { CreateUser, DeleteUser, EditUser, AdminProducts, CreateProduct, EditProduct } from 'app/views/Admin';
+import Admin, {
+  CreateUser,
+  DeleteUser,
+  EditUser,
+  AdminProducts,
+  CreateProduct,
+  EditProduct,
+  EditSeason,
+} from 'app/views/Admin';
 
 const AdminRoutes = () => {
   const { path } = useRouteMatch();
@@ -23,6 +31,12 @@ const AdminRoutes = () => {
         <EditProduct />
       </Route>
       <Route path={`${path}/products`} exact>
+        <AdminProducts />
+      </Route>
+      <Route path={`${path}/seasons/:seasonId`} exact>
+        <EditSeason />
+      </Route>
+      <Route path={`${path}/seasons`} exact>
         <AdminProducts />
       </Route>
       <Route path={path}>
