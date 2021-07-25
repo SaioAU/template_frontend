@@ -1,0 +1,21 @@
+.product {
+  border: 1px solid black;
+  margin: 25px 50px 75px 100px;
+  background-color: lightblue;
+  list-style: none;
+  color: black;
+  text-align: center;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+
+  img {
+  width: 150px;
+
+  }
+
+  p {
+    color: yellow;
+    font-size: 10px;
+  }
+}
