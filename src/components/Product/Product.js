@@ -1,3 +1,5 @@
+import { ProductType } from '../../propTypes';
+
 const Product = ({ product }) => (
   <li>
     {product.name}
@@ -8,5 +10,9 @@ const Product = ({ product }) => (
     <p>material: {product.material}</p>
   </li>
 );
+
+Product.propTypes = {
+  product: ProductType,
+};
 
 export default Product;

@@ -1,13 +1,17 @@
-import { Banner } from 'app/views';
+import { Banner, Footer } from 'app/views';
+import { BrowserRouter } from 'react-router-dom';
+
 import Routes from './routes';
 import ContextProvider from './context';
 
 const App = () => {
   return (
     <ContextProvider>
-      <Routes>
+      <BrowserRouter>
         <Banner />
-      </Routes>
+        <Routes />
+        <Footer />
+      </BrowserRouter>
     </ContextProvider>
   );
 };

@@ -6,3 +6,4 @@ export { default as Banner } from './Banner';
 export { default as Bio } from './Bio';
 export { default as Shop } from './Shop';
 export { default as Paintings } from './Paintings';
+export { default as Footer } from './Footer';
