@@ -3,4 +3,12 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+
+   li {
+    width: 200px;
+    height: 200px;
+    margin: 40px;
+
+  }
+
 }

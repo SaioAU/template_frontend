@@ -18,11 +18,11 @@ const ProductList = ({ products }) => {
     );
   }
   return (
-    <div className={styles.productList}>
+    <ul className={styles.productList}>
       {products.map((product) => (
         <Product key={product.id} product={product} />
       ))}
-    </div>
+    </ul>
   );
 };
 

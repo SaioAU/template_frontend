@@ -4,8 +4,9 @@ import styles from './Product.scss';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { getMediaType } from '../../utils';
 
-const Product = ({ product }) => {
+const Product = ({ product, detailView }) => {
   const isPhone = getMediaType() === 'PHONE';
+  console.log(isPhone, 'debug isPhone');
 
   return (
     <li className={styles.product}>
@@ -25,11 +26,15 @@ const Product = ({ product }) => {
           </div>
         </Carousel>
       )}
-      <p>category:{product.category}</p>
-      <p>colour: {product.colour}</p>
-      <p>description: {product.description}</p>
-      <p>price: {product.price}</p>
-      <p>material: {product.material}</p>
+      {detailView && (
+        <>
+          <p>category:{product.category}</p>
+          <p>colour: {product.colour}</p>
+          <p>description: {product.description}</p>
+          <p>price: {product.price}</p>
+          <p>material: {product.material}</p>
+        </>
+      )}
     </li>
   );
 };
