@@ -4,12 +4,12 @@ import styles from './Product.scss';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { getMediaType } from '../../utils';
 
-const Product = ({ product, detailView }) => {
+const Product = ({ product, detailView, onClick }) => {
   const isPhone = getMediaType() === 'PHONE';
-  console.log(isPhone, 'debug isPhone');
+  console.log(product, 'debug product and detailView', detailView);
 
   return (
-    <li className={styles.product}>
+    <li className={styles.product} onClick={onClick}>
       {product.name}
       {isPhone ? (
         <img src="https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/02/322868_1100-800x825.jpg" />

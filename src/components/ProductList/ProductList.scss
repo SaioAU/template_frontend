@@ -1,13 +1,14 @@
-.productList {
+ul.productList {
   background-color: blue;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  margin: 0;
 
    li {
-    width: 200px;
-    height: 200px;
+    width: 300px;
     margin: 40px;
+    height: fit-content;
 
   }
 
