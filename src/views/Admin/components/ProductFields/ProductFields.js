@@ -1,9 +1,31 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 import styles from './ProductFields.scss';
 
 import { useData } from '../../../../hooks';
 import { Dropdown } from '../../../../components';
+
+const sizeLimitKb = 10 * 1024;
+
+const readFiles = async (files) => {
+  const readFilesPromises = Array.from(files).map(
+    (file) =>
+      new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          const sizeKb = file.size / 1024;
+          if (sizeKb > sizeLimitKb) reject(new Error(`File exceeds limit of ${sizeLimitKb} kB`));
+          resolve({ data: reader.result });
+        };
+        reader.onabort = () => reject(new Error(reader.error));
+      }),
+  );
+
+  const result = await Promise.all(readFilesPromises);
+  return result;
+};
 
 const ProductFields = ({
   name,
@@ -24,6 +46,8 @@ const ProductFields = ({
   onChangeCare,
   seasonId,
   setSeasonId,
+  images,
+  setImages,
 }) => {
   const { data: seasons, loading, error } = useData('seasons/read/all');
 
@@ -36,6 +60,12 @@ const ProductFields = ({
     onClick: () => setSeasonId(id),
   }));
   const chosenSeason = seasonId ? seasons.find(({ id }) => id === seasonId).name : 'season';
+
+  const onUploadFile = async ({ target }) => {
+    const result = await readFiles(target.files);
+    setImages(result.map(({ data }) => ({ data, colour: 'red' }))); // TODO:colour
+  };
+
   return (
     <>
       <label htmlFor="edit-product-name" className={styles.label}>
@@ -90,6 +120,15 @@ const ProductFields = ({
       </label>
 
       <Dropdown options={seasonOptions} title={chosenSeason} />
+
+      <label htmlFor="edit-product-images" className={styles.label}>
+        Upload images:
+        <input type="file" onChange={onUploadFile} multiple />
+      </label>
+
+      {images.map(({ data }, idx) => (
+        <img src={data} key={`image-${idx}`} style={{ width: '150px', height: '150px' }} />
+      ))}
     </>
   );
 };
@@ -113,6 +152,8 @@ ProductFields.propTypes = {
   onChangeCare: PropTypes.func.isRequired,
   seasonId: PropTypes.string,
   setSeasonId: PropTypes.func,
+  images: PropTypes.arrayOf(PropTypes.object),
+  setImages: PropTypes.func,
 };
 
 export default ProductFields;

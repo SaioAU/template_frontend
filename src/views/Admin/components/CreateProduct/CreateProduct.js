@@ -27,13 +27,15 @@ const CreateProduct = () => {
   const onChangeMaterial = useCallback(({ target }) => setMaterial(target.value), []);
   const onChangeCare = useCallback(({ target }) => setCare(target.value), []);
 
+  const [images, setImages] = useState([]);
+
   const onSubmitCreate = async (event) => {
     event.preventDefault();
     event.stopPropagation();
 
     const response = await authenticatedFetch('products/create', {
       method: 'POST',
-      body: JSON.stringify({ name, category, size, price, description, colour, material, care, seasonId }),
+      body: JSON.stringify({ name, category, size, price, description, colour, material, care, seasonId, images }),
       headers: { 'Content-Type': 'application/json' },
     });
 
@@ -66,6 +68,8 @@ const CreateProduct = () => {
             onChangeCare={onChangeCare}
             seasonId={seasonId}
             setSeasonId={setSeasonId}
+            images={images}
+            setImages={setImages}
           />
           <button type="submit">Create</button>
           <button type="button" onClick={back}>

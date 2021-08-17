@@ -22,6 +22,8 @@ const EditProduct = () => {
   const [care, setCare] = useState('');
   const [seasonId, setSeasonId] = useState('');
 
+  const [images, setImages] = useState([]);
+
   const onChangeName = useCallback(({ target }) => setName(target.value), []);
   const onChangeCategory = useCallback(({ target }) => setCategory(target.value), []);
   const onChangeSize = useCallback(({ target }) => setSize(target.value), []);
@@ -44,6 +46,8 @@ const EditProduct = () => {
     setMaterial(product.material);
     setCare(product.care);
     setSeasonId(product.seasonId);
+
+    // TODO: Set existing images
   }, [product]);
 
   const onSubmitEdit = async (event) => {
@@ -94,6 +98,8 @@ const EditProduct = () => {
             onChangeCare={onChangeCare}
             seasonId={seasonId}
             setSeasonId={setSeasonId}
+            images={images}
+            setImages={setImages}
           />
           <button type="submit">Edit</button>
           <button type="button" onClick={back}>
