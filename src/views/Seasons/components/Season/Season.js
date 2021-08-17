@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-import { Product } from '../../../../components';
+import { ProductList } from '../../../../components';
 import { useData } from '../../../../hooks';
 
 const Season = () => {
@@ -11,13 +11,8 @@ const Season = () => {
   if (error) return <div> error </div>;
 
   const { products } = data;
-  return (
-    <div>
-      {products.map((product) => (
-        <Product key={product.id} product={product} />
-      ))}
-    </div>
-  );
+
+  return <ProductList products={products} />;
 };
 
 export default Season;

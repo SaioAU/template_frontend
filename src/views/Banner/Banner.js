@@ -29,7 +29,7 @@ const Banner = () => {
         <li>
           <Link to="/bio/"> bio </Link>
         </li>
-        <Dropdown options={seasonOptions} title="seasons" />
+        <Dropdown options={seasonOptions} title="seasons" className={styles.body} />
       </ul>
     </div>
   );

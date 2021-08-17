@@ -6,7 +6,6 @@ import { getMediaType } from '../../utils';
 
 const Product = ({ product, detailView, onClick }) => {
   const isPhone = getMediaType() === 'PHONE';
-  console.log(product, 'debug product and detailView', detailView);
 
   return (
     <li className={styles.product} onClick={onClick}>

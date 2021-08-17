@@ -25,9 +25,24 @@
       list-style: none;
       margin-left: 1rem;
     }
+  }
 
     button {
-      margin-left: 1rem;
+      padding-top: 5px;
     }
-  }
+
+    .box{
+      width: 99%;
+      box-shadow: 10px 10px 5px #888888;
+      padding: 10px;
+      padding-bottom: 20px;
+    }
+
+    .dropdown{
+      box-shadow: 10px 10px 5px #888888;
+      background-color: green;
+      border: 1px solid black;
+      width: 24%;
+      list-style: none;;
+    }
 }

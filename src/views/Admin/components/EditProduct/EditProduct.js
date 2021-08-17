@@ -11,7 +11,6 @@ const EditProduct = () => {
   const { push } = useHistory();
   const { productId } = useParams();
   const { data: product, loading, error } = useData(`products/read/?id=${productId}`);
-  console.log(product, loading, error, '😍');
 
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
@@ -50,7 +49,6 @@ const EditProduct = () => {
   const onSubmitEdit = async (event) => {
     event.preventDefault();
     event.stopPropagation();
-    console.log(typeof price, '🐶');
     const response = await authenticatedFetch('products/update', {
       method: 'PATCH',
       body: JSON.stringify({
@@ -71,7 +69,6 @@ const EditProduct = () => {
     if (response.status !== 200) console.log('product isnt editing');
     else go(0);
   };
-  console.log(name, '✅', product);
   return (
     <div>
       <h1>Product edit</h1>

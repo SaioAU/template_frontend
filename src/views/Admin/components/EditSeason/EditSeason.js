@@ -11,7 +11,6 @@ const EditProduct = () => {
   const { push } = useHistory();
   const { seasonId } = useParams();
   const { data, loading, error } = useData(`seasons/read/?id=${seasonId}`);
-  console.log(data, loading, error, '😍');
 
   const [name, setName] = useState('');
   const [year, setYear] = useState('');
@@ -30,7 +29,6 @@ const EditProduct = () => {
   const onSubmitEdit = async (event) => {
     event.preventDefault();
     event.stopPropagation();
-    console.log(typeof price, '🐶');
     const response = await authenticatedFetch('seasons/update', {
       method: 'PATCH',
       body: JSON.stringify({

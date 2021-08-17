@@ -33,7 +33,7 @@ const Login = () => {
       });
 
       if (response.status !== 200) {
-        setError("Couldn't log in");
+        setError("Couldn't login");
         return;
       }
 
