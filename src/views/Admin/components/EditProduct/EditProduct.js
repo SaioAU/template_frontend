@@ -48,8 +48,7 @@ const EditProduct = () => {
     setMaterial(product.material);
     setCare(product.care);
     setSeasonId(product.seasonId);
-
-    // TODO: Set existing images
+    setImages(product.images);
   }, [product]);
 
   const onSubmitEdit = async (event) => {
@@ -68,13 +67,15 @@ const EditProduct = () => {
         material,
         care,
         seasonId,
+        images,
       }),
       headers: { 'Content-Type': 'application/json' },
     });
 
-    if (response.status !== 200) console.log('product isnt editing');
+    if (response.status !== 200) console.error('product isnt editing');
     else go(0);
   };
+
   return (
     <FetchWrapper loading={loading} error={error}>
       <h1>Product edit</h1>

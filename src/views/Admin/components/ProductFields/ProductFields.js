@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
 
 import styles from './ProductFields.scss';
 
@@ -61,9 +60,16 @@ const ProductFields = ({
   }));
   const chosenSeason = seasonId ? seasons.find(({ id }) => id === seasonId).name : 'season';
 
+  // TODO: Fix upload  for large images
   const onUploadFile = async ({ target }) => {
     const result = await readFiles(target.files);
-    setImages(result.map(({ data }) => ({ data, colour: 'red' }))); // TODO:colour
+
+    // TODO: colour
+    setImages((existingImages) => [...existingImages, ...result.map(({ data }) => ({ data, colour: 'red' }))]);
+  };
+
+  const deleteImageByIndex = (index) => {
+    setImages((currentImages) => [...currentImages.slice(0, index), ...currentImages.slice(index + 1)]);
   };
 
   return (
@@ -126,9 +132,17 @@ const ProductFields = ({
         <input type="file" onChange={onUploadFile} multiple />
       </label>
 
-      {images.map(({ data }, idx) => (
-        <img src={data} key={`image-${idx}`} style={{ width: '150px', height: '150px' }} />
-      ))}
+      <div className={styles.images}>
+        {images.map(({ data }, idx) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <div key={`image-${idx}`}>
+            <img src={data} style={{ width: '150px', height: '150px' }} alt="Uploaded" />
+            <button onClick={() => deleteImageByIndex(idx)} type="button">
+              Delete
+            </button>
+          </div>
+        ))}
+      </div>
     </>
   );
 };
