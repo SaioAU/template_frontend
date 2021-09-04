@@ -2,6 +2,8 @@ import { useCallback, useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { useAutheticatedFetch, useData } from 'app/hooks';
+import { FetchWrapper } from 'app/components';
+
 import ProductFields from '../ProductFields';
 import styles from './EditProduct.scss';
 
@@ -74,7 +76,7 @@ const EditProduct = () => {
     else go(0);
   };
   return (
-    <div>
+    <FetchWrapper loading={loading} error={error}>
       <h1>Product edit</h1>
       <div>
         <h2>Products</h2>
@@ -107,7 +109,7 @@ const EditProduct = () => {
           </button>
         </form>
       </div>
-    </div>
+    </FetchWrapper>
   );
 };
 

@@ -1,5 +1,7 @@
 import { Link, useHistory } from 'react-router-dom';
+
 import { useAutheticatedFetch, useData } from 'app/hooks';
+import { FetchWrapper } from 'app/components';
 
 import styles from '../../Admin.scss';
 
@@ -33,10 +35,10 @@ const AdminProducts = () => {
   const { data: seasons, loading, error } = useData('seasons/read/all');
 
   if (loading) return <div>LOADING</div>;
-
   if (error) return <div>ERROR: {error}</div>;
+
   return (
-    <>
+    <FetchWrapper loading={loading} error={error}>
       <div>
         <h1>Admin</h1>
         {data?.length > 0 && (
@@ -119,7 +121,7 @@ const AdminProducts = () => {
           </div>
         )}
       </div>
-    </>
+    </FetchWrapper>
   );
 };
 
