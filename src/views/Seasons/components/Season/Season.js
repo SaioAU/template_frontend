@@ -6,13 +6,9 @@ import { useData } from '../../../../hooks';
 const Season = () => {
   const { seasonId } = useParams();
   const { data, loading, error } = useData(`seasons/read?id=${seasonId}`);
+  const products = data?.products ?? [];
 
-  if (loading) return <div> loading </div>;
-  if (error) return <div> error </div>;
-
-  const { products } = data;
-
-  return <ProductList products={products} />;
+  return <ProductList products={products} loading={loading} error={error} />;
 };
 
 export default Season;
