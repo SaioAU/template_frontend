@@ -2,6 +2,8 @@ import { useCallback, useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { useAutheticatedFetch, useData } from 'app/hooks';
+import { FetchWrapper } from 'app/components';
+
 import SeasonFields from '../SeasonFields';
 import styles from './EditSeason.scss';
 
@@ -22,8 +24,8 @@ const EditProduct = () => {
 
   useEffect(() => {
     if (!data) return;
-    setName(data.season.name);
-    setYear(data.season.year);
+    setName(data.name);
+    setYear(data.year);
   }, [data]);
 
   const onSubmitEdit = async (event) => {
@@ -43,7 +45,7 @@ const EditProduct = () => {
     else go(0);
   };
   return (
-    <div>
+    <FetchWrapper loading={loading} error={error}>
       <h1>Season edit</h1>
       <div>
         <h2>Seasons</h2>
@@ -55,7 +57,7 @@ const EditProduct = () => {
           </button>
         </form>
       </div>
-    </div>
+    </FetchWrapper>
   );
 };
 
