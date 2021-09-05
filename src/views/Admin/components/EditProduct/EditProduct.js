@@ -1,7 +1,9 @@
-import { useCallback, useState, useEffect } from 'react';
+import { isEmpty, equals } from 'ramda';
+import { useCallback, useState, useEffect, useMemo } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { useAutheticatedFetch, useData } from 'app/hooks';
+import { DEFAULT_VALUES, DEFAULT_SCALAR_PRODUCT_VALUES, SCALAR_PRODUCT_FIELDS } from 'app/constants';
 import { FetchWrapper } from 'app/components';
 
 import ProductFields from '../ProductFields';
@@ -14,67 +16,61 @@ const EditProduct = () => {
   const { productId } = useParams();
   const { data: product, loading, error } = useData(`products/read/?id=${productId}`);
 
-  const [name, setName] = useState('');
-  const [category, setCategory] = useState('');
-  const [size, setSize] = useState('');
-  const [price, setPrize] = useState(0);
-  const [description, setDescription] = useState('');
-  const [colour, setColour] = useState('');
-  const [material, setMaterial] = useState('');
-  const [care, setCare] = useState('');
-  const [seasonId, setSeasonId] = useState('');
-
   const [images, setImages] = useState([]);
-
-  const onChangeName = useCallback(({ target }) => setName(target.value), []);
-  const onChangeCategory = useCallback(({ target }) => setCategory(target.value), []);
-  const onChangeSize = useCallback(({ target }) => setSize(target.value), []);
-  const onChangePrize = useCallback(({ target }) => setPrize(target.value), []);
-  const onChangeDescription = useCallback(({ target }) => setDescription(target.value), []);
-  const onChangeColour = useCallback(({ target }) => setColour(target.value), []);
-  const onChangeMaterial = useCallback(({ target }) => setMaterial(target.value), []);
-  const onChangeCare = useCallback(({ target }) => setCare(target.value), []);
+  const [seasonId, setSeasonId] = useState('');
+  const [scalarValues, setScalarValues] = useState(DEFAULT_SCALAR_PRODUCT_VALUES);
 
   const back = useCallback(() => push('/admin/products'), [push]);
 
+  const initialScalarValues = useMemo(
+    () =>
+      Object.entries(SCALAR_PRODUCT_FIELDS).reduce(
+        (fields, [name, type]) => ({ ...fields, [name]: product?.[name] ?? DEFAULT_VALUES[type] }),
+        {},
+      ),
+    [product],
+  );
+
   useEffect(() => {
-    if (!product) return;
-    setName(product.name);
-    setCategory(product.category);
-    setSize(product.size);
-    setPrize(product.price);
-    setDescription(product.description);
-    setColour(product.colour);
-    setMaterial(product.material);
-    setCare(product.care);
-    setSeasonId(product.seasonId);
-    setImages(product.images);
-  }, [product]);
+    if (
+      !isEmpty(initialScalarValues) &&
+      equals(scalarValues, DEFAULT_SCALAR_PRODUCT_VALUES) &&
+      !equals(initialScalarValues, DEFAULT_SCALAR_PRODUCT_VALUES)
+    ) {
+      setScalarValues(initialScalarValues);
+    }
+  }, [initialScalarValues, scalarValues]);
 
-  const onSubmitEdit = async (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    const response = await authenticatedFetch('products/update', {
-      method: 'PATCH',
-      body: JSON.stringify({
-        id: productId,
-        name,
-        category,
-        size,
-        price: Number(price),
-        description,
-        colour,
-        material,
-        care,
-        seasonId,
-        images,
-      }),
-      headers: { 'Content-Type': 'application/json' },
-    });
+  useEffect(() => {
+    if (isEmpty(images) && product?.images && !isEmpty(product?.images)) setImages(product.images);
+  }, [images, product]);
 
-    if (response.status !== 200) console.error('product isnt editing');
-    else go(0);
-  };
+  useEffect(() => {
+    if (!seasonId && product?.seasonId) setSeasonId(product.seasonId);
+  }, [product, seasonId]);
+
+  const onSubmitEdit = useCallback(
+    async (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const response = await authenticatedFetch('products/update', {
+        method: 'PATCH',
+        body: JSON.stringify({
+          id: productId,
+          ...scalarValues,
+          seasonId,
+          images,
+        }),
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (response.status !== 200) console.error('Error saving edits', await response.json());
+      else go(0);
+    },
+    [authenticatedFetch, go, images, productId, seasonId, scalarValues],
+  );
+
+  const hasChanges = !equals(initialScalarValues, { ...scalarValues, images, seasonId });
 
   return (
     <FetchWrapper loading={loading} error={error}>
@@ -83,28 +79,16 @@ const EditProduct = () => {
         <h2>Products</h2>
         <form autoComplete="off" className={styles.productForm} onSubmit={onSubmitEdit}>
           <ProductFields
-            name={name}
-            onChangeName={onChangeName}
-            category={category}
-            onChangeCategory={onChangeCategory}
-            size={size}
-            onChangeSize={onChangeSize}
-            price={price}
-            onChangePrize={onChangePrize}
-            description={description}
-            onChangeDescription={onChangeDescription}
-            colour={colour}
-            onChangeColour={onChangeColour}
-            material={material}
-            onChangeMaterial={onChangeMaterial}
-            care={care}
-            onChangeCare={onChangeCare}
+            scalarValues={scalarValues}
+            setScalarValues={setScalarValues}
             seasonId={seasonId}
             setSeasonId={setSeasonId}
             images={images}
             setImages={setImages}
           />
-          <button type="submit">Edit</button>
+          <button type="submit" disabled={!hasChanges}>
+            Save
+          </button>
           <button type="button" onClick={back}>
             Back
           </button>
